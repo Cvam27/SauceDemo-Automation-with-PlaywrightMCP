@@ -1,10 +1,11 @@
 # SauceDemo Automation Testing
 
-This project automates testing for the SauceDemo website using Playwright and Python with Page Object Model.
+This project automates testing for the SauceDemo website using Playwright and Python with Page Object Model. The entire project was created using Playwright MCP.
 
 ## Setup
 
 1. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    playwright install
