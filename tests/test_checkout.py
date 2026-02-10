@@ -5,16 +5,13 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 
 @pytest.fixture
-def checkout_page(page):
-    page.goto("https://www.saucedemo.com/")
-    login_page = LoginPage(page)
-    login_page.login("standard_user", "secret_sauce")
-    products_page = ProductsPage(page)
+def checkout_page(logged_in_page):
+    products_page = ProductsPage(logged_in_page)
     products_page.add_product_to_cart(0)
     products_page.go_to_cart()
-    cart_page = CartPage(page)
+    cart_page = CartPage(logged_in_page)
     cart_page.proceed_to_checkout()
-    return CheckoutPage(page)
+    return CheckoutPage(logged_in_page)
 
 def test_successful_checkout(checkout_page):
     checkout_page.fill_checkout_info("John", "Doe", "12345")

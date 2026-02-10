@@ -4,23 +4,17 @@ from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 
 @pytest.fixture
-def cart_page(page):
-    page.goto("https://www.saucedemo.com/")
-    login_page = LoginPage(page)
-    login_page.login("standard_user", "secret_sauce")
-    products_page = ProductsPage(page)
+def cart_page(logged_in_page):
+    products_page = ProductsPage(logged_in_page)
     products_page.add_product_to_cart(0)
     products_page.go_to_cart()
-    return CartPage(page)
+    return CartPage(logged_in_page)
 
 @pytest.fixture
-def empty_cart_page(page):
-    page.goto("https://www.saucedemo.com/")
-    login_page = LoginPage(page)
-    login_page.login("standard_user", "secret_sauce")
-    products_page = ProductsPage(page)
+def empty_cart_page(logged_in_page):
+    products_page = ProductsPage(logged_in_page)
     products_page.go_to_cart()
-    return CartPage(page)
+    return CartPage(logged_in_page)
 
 def test_cart_has_items(cart_page):
     assert cart_page.get_cart_item_count() > 0
